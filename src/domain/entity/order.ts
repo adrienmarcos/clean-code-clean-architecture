@@ -6,11 +6,13 @@ import OrderItem from './order-item'
 export default class Order {
   readonly cpf: Cpf
   readonly orderItems: OrderItem[]
+  readonly date: Date
   private coupon: Coupon | undefined
 
-  constructor (cpf: string) {
+  constructor (cpf: string, date: Date = new Date()) {
     this.cpf = new Cpf(cpf)
     this.orderItems = []
+    this.date = date
   }
 
   getTotal (): number {
@@ -32,6 +34,7 @@ export default class Order {
   }
 
   addCoupon (coupon: Coupon): void {
+    if (!coupon.isValid(this.date)) return
     this.coupon = coupon
   }
 }
