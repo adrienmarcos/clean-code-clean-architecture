@@ -7,7 +7,7 @@ export default class Coupon {
     this.percentage = percentage
   }
 
-  isValid (curretDate: Date): boolean {
+  isValid (curretDate: Date = new Date()): boolean {
     if (!this.expireDate) return true
     return curretDate.getTime() <= this.expireDate.getTime()
   }
