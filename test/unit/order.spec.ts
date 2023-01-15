@@ -24,7 +24,7 @@ describe('Order Entity', () => {
     expect(order.getQuantity()).toBe(3)
   })
 
-  test('Should create an Order with 3 items and a discount coupun if valid values is provided', () => {
+  test('Should create an Order with 3 items and a valid coupun if valid values is provided', () => {
     const order = new Order('839.435.452-10')
     order.addItem(new Item(1, 'Musica', 'CD', 30), 3)
     order.addItem(new Item(2, 'Video', 'DVD', 50), 1)
@@ -33,5 +33,16 @@ describe('Order Entity', () => {
     expect(order.getCpf().getValue()).toBe('839.435.452-10')
     expect(order.getQuantity()).toBe(3)
     expect(order.getTotal()).toBe(128)
+  })
+
+  test('Should create an Order with 3 items and a expired coupun if valid values is provided', () => {
+    const order = new Order('839.435.452-10', new Date('2023-1-16'))
+    order.addItem(new Item(1, 'Musica', 'CD', 30), 3)
+    order.addItem(new Item(2, 'Video', 'DVD', 50), 1)
+    order.addItem(new Item(3, 'Video', 'VHS', 10), 2)
+    order.addCoupon(new Coupon('Vale20', 20, new Date('2023-1-15')))
+    expect(order.getCpf().getValue()).toBe('839.435.452-10')
+    expect(order.getQuantity()).toBe(3)
+    expect(order.getTotal()).toBe(160)
   })
 })
