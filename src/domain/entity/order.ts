@@ -18,7 +18,7 @@ export default class Order {
   getTotal (): number {
     const total = this.orderItems.reduce((acc, orderItem) => acc + orderItem.getTotal(), 0)
     if (!this.coupon) return total
-    return total - (total * this.coupon.percentage) / 100
+    return total - this.coupon.applyDiscount(total)
   }
 
   getQuantity (): number {
