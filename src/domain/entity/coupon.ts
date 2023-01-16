@@ -12,7 +12,7 @@ export default class Coupon {
     return curretDate.getTime() <= this.expireDate.getTime()
   }
 
-  applyDiscount (amount: number): number {
+  calculateDiscount (amount: number): number {
     return (amount * this.percentage) / 100
   }
 }
