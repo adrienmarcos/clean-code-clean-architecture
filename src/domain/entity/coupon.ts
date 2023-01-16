@@ -13,6 +13,7 @@ export default class Coupon {
   }
 
   calculateDiscount (amount: number): number {
+    if (!this.isValid()) return 0
     return (amount * this.percentage) / 100
   }
 }
