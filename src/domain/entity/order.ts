@@ -22,7 +22,8 @@ export default class Order {
   }
 
   getQuantity (): number {
-    return this.orderItems.length
+    if (!this.orderItems.length) return 0
+    return this.orderItems.reduce((acc, orderItem) => acc + orderItem.quantity, 0)
   }
 
   getCpf (): Cpf {
