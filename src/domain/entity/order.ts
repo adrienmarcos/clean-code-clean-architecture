@@ -1,5 +1,7 @@
 import Coupon from './coupon'
 import Cpf from './cpf'
+import DefaultFreightCalculator from './default-freight-calculator'
+import FreightCalculator from './freight-calculator'
 import Item from './item'
 import OrderItem from './order-item'
 
@@ -8,11 +10,15 @@ export default class Order {
   readonly orderItems: OrderItem[]
   readonly date: Date
   private coupon: Coupon | undefined
+  private freight: number
+  readonly freightCalculator: FreightCalculator
 
-  constructor (cpf: string, date: Date = new Date()) {
+  constructor (cpf: string, date: Date = new Date(), freightCalculator: FreightCalculator = new DefaultFreightCalculator()) {
     this.cpf = new Cpf(cpf)
     this.orderItems = []
     this.date = date
+    this.freight = 0
+    this.freightCalculator = freightCalculator
   }
 
   getTotal (): number {
@@ -30,7 +36,12 @@ export default class Order {
     return this.cpf
   }
 
+  getFreight (): number {
+    return this.freight
+  }
+
   addItem (item: Item, quantity: number): void {
+    this.freight += this.freightCalculator.calculate(item) * quantity
     this.orderItems.push(new OrderItem(item.id, item.price, quantity))
   }
 
