@@ -1,4 +1,4 @@
-export default class OrderItem {
+export class OrderItem {
   readonly idItem: number
   readonly price: number
   readonly quantity: number

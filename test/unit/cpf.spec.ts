@@ -1,4 +1,4 @@
-import Cpf from '../../src/domain/entity/cpf'
+import { Cpf } from '../../src/domain/entity/cpf'
 
 describe('Cpf Entity', () => {
   test('Should validate a Cpf if valid data is provided', () => {

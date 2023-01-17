@@ -1,4 +1,4 @@
-export default class Item {
+export class Item {
   readonly id: number
   readonly category: string
   readonly description: string

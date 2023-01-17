@@ -1,4 +1,4 @@
-export default class Coupon {
+export class Coupon {
   readonly code: string
   readonly percentage: number
 

@@ -1,4 +1,4 @@
-export default class Cpf {
+export class Cpf {
   readonly value: string
 
   constructor (value: string) {

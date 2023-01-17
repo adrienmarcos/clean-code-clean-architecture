@@ -1,5 +1,5 @@
-import Item from './item'
+import { Item } from './item'
 
-export default interface FreightCalculator {
+export interface FreightCalculator {
   calculate: (item: Item) => number
 }

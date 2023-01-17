@@ -1,8 +1,8 @@
-import Coupon from '../../src/domain/entity/coupon'
-import DefaultFreightCalculator from '../../src/domain/entity/default-freight-calculator'
-import FixedFreightCalculator from '../../src/domain/entity/fixed-freight-calculator'
-import Item from '../../src/domain/entity/item'
-import Order from '../../src/domain/entity/order'
+import { Coupon } from '../../src/domain/entity/coupon'
+import { DefaultFreightCalculator } from '../../src/domain/entity/default-freight-calculator'
+import { FixedFreightCalculator } from '../../src/domain/entity/fixed-freight-calculator'
+import { Item } from '../../src/domain/entity/item'
+import { Order } from '../../src/domain/entity/order'
 
 describe('Order Entity', () => {
   test('Should create an Order if valid cpf is provided', () => {

@@ -1,4 +1,4 @@
-import Coupon from '../../src/domain/entity/coupon'
+import { Coupon } from '../../src/domain/entity/coupon'
 
 describe('Coupon Entity', () => {
   test('Should create a valid discount coupon if correct data is provided', () => {

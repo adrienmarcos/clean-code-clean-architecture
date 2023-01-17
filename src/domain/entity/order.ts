@@ -1,11 +1,11 @@
-import Coupon from './coupon'
-import Cpf from './cpf'
-import DefaultFreightCalculator from './default-freight-calculator'
-import FreightCalculator from './freight-calculator'
-import Item from './item'
-import OrderItem from './order-item'
+import { Coupon } from './coupon'
+import { Cpf } from './cpf'
+import { DefaultFreightCalculator } from './default-freight-calculator'
+import { FreightCalculator } from './freight-calculator'
+import { Item } from './item'
+import { OrderItem } from './order-item'
 
-export default class Order {
+export class Order {
   readonly cpf: Cpf
   readonly orderItems: OrderItem[]
   readonly date: Date
