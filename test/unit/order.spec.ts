@@ -69,4 +69,16 @@ describe('Order Entity', () => {
     expect(order.getTotal()).toBe(7090)
     expect(order.getFreight()).toBe(50)
   })
+
+  test('Should create and Order with a OrderCode', () => {
+    const order = new Order('839.435.452-10', new Date('2023-1-23'), new FixedFreightCalculator())
+    order.addItem(new Item(4, 'Instrumentos Musicais', 'Guitarra', 2000, 100, 30, 10, 3), 1)
+    order.addItem(new Item(5, 'Instrumentos Musicais', 'Amplificador', 5000, 100, 50, 50, 20), 1)
+    order.addItem(new Item(6, 'Acessórios', 'Cabo', 30, 10, 10, 10, 0.9), 3)
+    expect(order.getCpf().getValue()).toBe('839.435.452-10')
+    expect(order.getQuantity()).toBe(5)
+    expect(order.getTotal()).toBe(7090)
+    expect(order.getFreight()).toBe(50)
+    expect(order.getCode()).toBe('202300000001')
+  })
 })
