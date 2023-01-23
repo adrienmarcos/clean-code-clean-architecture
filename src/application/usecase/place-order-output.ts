@@ -1,7 +1,9 @@
 export class PlaceOrderOutput {
   readonly total: number
+  readonly code: string
 
-  constructor (total: number) {
+  constructor (code: string, total: number) {
     this.total = total
+    this.code = code
   }
 }

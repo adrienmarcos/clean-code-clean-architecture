@@ -8,6 +8,12 @@ export class OrderRepositoryMemory implements OrderRepository {
     this.orders = []
   }
 
+  async count (): Promise<number> {
+    return await new Promise<number>((resolve, reject) => {
+      resolve(this.orders.length)
+    })
+  }
+
   async save (order: Order): Promise<void> {
     if (!order) throw new Error('Order not valid')
     this.orders.push(order)
