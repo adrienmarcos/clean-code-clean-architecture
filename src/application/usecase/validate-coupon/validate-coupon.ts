@@ -10,6 +10,6 @@ export class ValidateCoupon {
   async execute (code: string): Promise<boolean> {
     const coupon = await this.couponRepository.findByCode(code)
     if (!coupon) throw new Error('Coupon not found')
-    return coupon.isValid(new Date())
+    return coupon.isValid()
   }
 }
