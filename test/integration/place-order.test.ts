@@ -5,11 +5,12 @@ import { ItemRepositoryDatabase } from '../../src/infrastructure/repository/data
 import { OrderRepositoryDatabase } from '../../src/infrastructure/repository/database/order-repository-database'
 
 let placeOrder: PlaceOrder
+let orderRepository: OrderRepositoryDatabase
 
 beforeEach(() => {
   const connection = new PgPromiseConnectionAdapter()
   const itemRepository = new ItemRepositoryDatabase(connection)
-  const orderRepository = new OrderRepositoryDatabase(connection)
+  orderRepository = new OrderRepositoryDatabase(connection)
   const couponRepository = new CouponRepositoryDatabase(connection)
   placeOrder = new PlaceOrder(itemRepository, orderRepository, couponRepository)
 })
@@ -60,4 +61,8 @@ describe('Place Order', () => {
     const output = await placeOrder.execute(input)
     expect(output.total).toBe(88)
   })
+})
+
+afterEach(async () => {
+  await orderRepository.clear()
 })
