@@ -1,4 +1,4 @@
-import { PlaceOrder } from '../../src/application/usecase/place-order'
+import { PlaceOrder } from '../../src/application/usecase/place-order/place-order'
 import { PgPromiseConnectionAdapter } from '../../src/infrastructure/database/pg-promise-connections-adapter'
 import { CouponRepositoryDatabase } from '../../src/infrastructure/repository/database/coupon-repository-database'
 import { ItemRepositoryDatabase } from '../../src/infrastructure/repository/database/item-repository-database'
