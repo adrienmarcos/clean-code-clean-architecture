@@ -21,12 +21,12 @@ export class OrderRepositoryMemory implements OrderRepository {
 
   async findByCpf (cpf: string): Promise<Order | Order[] | undefined> {
     if (!cpf) throw new Error('Cpf not valid')
-    return this.orders.find((order) => order.getCpf().getValue() === cpf)
+    return this.orders.find((order) => order.getCpf() === cpf)
   }
 
   async delete (orderToBeRemoved: Order): Promise<void> {
-    const order = this.orders.find((order) => order.getCpf().getValue() === orderToBeRemoved.getCpf().getValue())
+    const order = this.orders.find((order) => order.getCpf() === orderToBeRemoved.getCpf())
     if (!order) throw new Error('Order not found')
-    this.orders = this.orders.filter((order) => order.getCpf().getValue() !== orderToBeRemoved.getCpf().getValue())
+    this.orders = this.orders.filter((order) => order.getCpf() !== orderToBeRemoved.getCpf())
   }
 }
