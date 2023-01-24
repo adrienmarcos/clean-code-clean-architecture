@@ -18,4 +18,11 @@ describe('Validate Coupon', () => {
     const isValid = await validateCoupon.execute('VALE20_EXPIRED')
     expect(isValid).toBeFalsy()
   })
+
+  test('Should throw an Error if invalid data is provided', () => {
+    const connection = PgPromiseConnectionAdapter.getInstance()
+    const couponRepository = new CouponRepositoryDatabase(connection)
+    const validateCoupon = new ValidateCoupon(couponRepository)
+    void expect(validateCoupon.execute('INVALID_COUPON')).rejects.toEqual(new Error('Coupon not found'))
+  })
 })
