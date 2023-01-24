@@ -4,7 +4,7 @@ import { CouponRepositoryDatabase } from '../../src/infrastructure/repository/da
 
 describe('Validate Coupon', () => {
   test('Should validate a valid discount Coupon ', async () => {
-    const connection = new PgPromiseConnectionAdapter()
+    const connection = PgPromiseConnectionAdapter.getInstance()
     const couponRepository = new CouponRepositoryDatabase(connection)
     const validateCoupon = new ValidateCoupon(couponRepository)
     const isValid = await validateCoupon.execute('VALE20')
@@ -12,7 +12,7 @@ describe('Validate Coupon', () => {
   })
 
   test('Should validate an expired discount Coupon', async () => {
-    const connection = new PgPromiseConnectionAdapter()
+    const connection = PgPromiseConnectionAdapter.getInstance()
     const couponRepository = new CouponRepositoryDatabase(connection)
     const validateCoupon = new ValidateCoupon(couponRepository)
     const isValid = await validateCoupon.execute('VALE20_EXPIRED')
