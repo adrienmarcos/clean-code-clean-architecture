@@ -9,6 +9,11 @@ export class OrderRepositoryDatabase implements OrderRepository {
     this.connection = connection
   }
 
+  async clear (): Promise<void> {
+    await this.connection.query('Delete from ccca.tb_order_item', [])
+    await this.connection.query('Delete from ccca.tb_order', [])
+  }
+
   async save (order: Order): Promise<void> {
     const [orderData] = await this.connection.query(`INSERT INTO ccca.tb_order(code, cpf, issue_date, freight, sequence, coupon) 
       VALUES($1, $2, $3, $4, $5, $6) returning *`, [order.getCode(), order.getCpf(), order.date, order.getFreight(), order.sequence, order.getCoupon()])

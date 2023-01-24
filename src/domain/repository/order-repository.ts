@@ -5,4 +5,5 @@ export interface OrderRepository {
   findByCpf(cpf: string): Promise<Order | Order[] | undefined>
   delete(order: Order): Promise<void>
   count(): Promise<number>
+  clear(): Promise<void>
 }

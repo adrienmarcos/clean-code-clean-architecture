@@ -8,6 +8,10 @@ export class OrderRepositoryMemory implements OrderRepository {
     this.orders = []
   }
 
+  async clear (): Promise<void> {
+    this.orders = []
+  }
+
   async count (): Promise<number> {
     return await new Promise<number>((resolve, reject) => {
       resolve(this.orders.length)
