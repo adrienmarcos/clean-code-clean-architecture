@@ -8,7 +8,7 @@ import { OrderItem } from './order-item'
 
 export class Order {
   readonly cpf: Cpf
-  readonly orderItems: OrderItem[]
+  private readonly orderItems: OrderItem[]
   readonly date: Date
   private coupon: Coupon | undefined
   private freight: number
@@ -36,8 +36,8 @@ export class Order {
     return this.orderItems.reduce((acc, orderItem) => acc + orderItem.quantity, 0)
   }
 
-  getCpf (): Cpf {
-    return this.cpf
+  getCpf (): string {
+    return this.cpf.value
   }
 
   getFreight (): number {
@@ -46,6 +46,14 @@ export class Order {
 
   getCode (): string {
     return this.code.getValue()
+  }
+
+  getCoupon (): string | undefined {
+    return this.coupon?.code
+  }
+
+  getOrderItems (): OrderItem[] {
+    return this.orderItems
   }
 
   addItem (item: Item, quantity: number): void {
