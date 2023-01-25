@@ -1,7 +1,6 @@
 import { PlaceOrder } from '../../src/application/usecase/place-order/place-order'
 import { PgPromiseConnectionAdapter } from '../../src/infrastructure/database/pg-promise-connections-adapter'
-import { CouponRepositoryDatabase } from '../../src/infrastructure/repository/database/coupon-repository-database'
-import { ItemRepositoryDatabase } from '../../src/infrastructure/repository/database/item-repository-database'
+import { DatabaseRepositoryFactory } from '../../src/infrastructure/factory/database-repository-factory'
 import { OrderRepositoryDatabase } from '../../src/infrastructure/repository/database/order-repository-database'
 
 let placeOrder: PlaceOrder
@@ -9,10 +8,10 @@ let orderRepository: OrderRepositoryDatabase
 
 beforeEach(() => {
   const connection = PgPromiseConnectionAdapter.getInstance()
-  const itemRepository = new ItemRepositoryDatabase(connection)
   orderRepository = new OrderRepositoryDatabase(connection)
-  const couponRepository = new CouponRepositoryDatabase(connection)
-  placeOrder = new PlaceOrder(itemRepository, orderRepository, couponRepository)
+  const repositoryFactory = new DatabaseRepositoryFactory()
+  // const repositoryFactory = new MemoryRepositoryFactory()
+  placeOrder = new PlaceOrder(repositoryFactory)
 })
 
 describe('Place Order', () => {
