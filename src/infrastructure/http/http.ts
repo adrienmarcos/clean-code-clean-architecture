@@ -1,4 +1,4 @@
-export default interface Http {
+export interface Http {
   on(url: string, method: string, fn: any): void
   listen(port: number): void
 }

@@ -1,7 +1,7 @@
 import Express from 'express'
-import Http from './http'
+import { Http } from './http'
 
-export default class ExpressAdapter implements Http {
+export class ExpressAdapter implements Http {
   private readonly app: any
 
   constructor () {
