@@ -6,7 +6,7 @@ export class PgPromiseConnectionAdapter implements Connection {
   static instance: PgPromiseConnectionAdapter
 
   private constructor () {
-    this.pgPromise = pgPromise()('postgres://postgres:root@localhost:5432/ccca')
+    this.pgPromise = pgPromise()('postgres://postgres:root@localhost:5432/postgres')
   }
 
   static getInstance (): PgPromiseConnectionAdapter {
