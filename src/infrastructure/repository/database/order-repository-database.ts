@@ -1,3 +1,6 @@
+import { Coupon } from '../../../domain/entity/coupon'
+import { DefaultFreightCalculator } from '../../../domain/entity/default-freight-calculator'
+import { Item } from '../../../domain/entity/item'
 import { Order } from '../../../domain/entity/order'
 import { OrderRepository } from '../../../domain/repository/order-repository'
 import { Connection } from '../../database/connection'
@@ -7,6 +10,34 @@ export class OrderRepositoryDatabase implements OrderRepository {
 
   constructor (connection: Connection) {
     this.connection = connection
+  }
+
+  async findAll (): Promise<Order[]> {
+    const orders: Order[] = []
+    const ordersData = await this.connection.query('Select * from ccca.tb_order', [])
+    for (const orderData of ordersData) {
+      const order = await this.get(orderData.code)
+      orders.push(order)
+    }
+    return orders
+  }
+
+  async get (code: string): Promise<Order> {
+    const [orderData] = await this.connection.query('Select * from ccca.tb_order where code = $1', [code])
+    if (!orderData) throw new Error('Order not found')
+    const order = new Order(orderData.cpf, orderData.issue_date, new DefaultFreightCalculator())
+    const orderItemsData = await this.connection.query('Select * from ccca.tb_order_item where id_item = $1', [orderData.id])
+    for (const orderItemData of orderItemsData) {
+      const [itemData] = await this.connection.query('Select * from ccca.tb_item where id = $1', [orderItemData.id])
+      const item = new Item(itemData.id_item, itemData.category, itemData.description, parseFloat(orderItemData.price), itemData.width, itemData.height, itemData.length, itemData.weight)
+      order.addItem(item, orderItemData.quantity)
+    }
+    if (orderData.coupon) {
+      const [couponData] = await this.connection.query('Select * from ccca.tb_coupon where code = $1', [orderData.coupon])
+      const coupon = new Coupon(couponData.code, parseInt(couponData.percentage), couponData.expire_date)
+      order.addCoupon(coupon)
+    }
+    return order
   }
 
   async clear (): Promise<void> {

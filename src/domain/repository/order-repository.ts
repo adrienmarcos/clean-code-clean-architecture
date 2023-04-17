@@ -6,4 +6,6 @@ export interface OrderRepository {
   delete(order: Order): Promise<void>
   count(): Promise<number>
   clear(): Promise<void>
+  get(code: string): Promise<Order>
+  findAll(): Promise<Order[]>
 }
