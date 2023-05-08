@@ -67,7 +67,7 @@ describe('Api', () => {
       method: 'get'
     })
     const output = response.data
-    console.log(output)
+    expect(output.orders).toHaveLength(1)
   })
 })
 
