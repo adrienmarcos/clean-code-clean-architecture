@@ -1,4 +1,4 @@
-import { GetOrder } from '../../application/query/get-order'
+import { GetOrder } from '../../application/query/get-order/get-order'
 import { Connection } from '../database/connection'
 
 export class GetOrderController {

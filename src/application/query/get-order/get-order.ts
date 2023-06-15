@@ -1,4 +1,4 @@
-import { Connection } from '../../infrastructure/database/connection'
+import { Connection } from '../../../infrastructure/database/connection'
 import { GetOrderOutput } from './get-order-output'
 
 export class GetOrder {

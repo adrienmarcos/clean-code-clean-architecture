@@ -1,4 +1,4 @@
-import { GetOrder } from '../../../src/application/query/get-order'
+import { GetOrder } from '../../../src/application/query/get-order/get-order'
 import { PlaceOrder } from '../../../src/application/usecase/place-order/place-order'
 import { PgPromiseConnectionAdapter } from '../../../src/infrastructure/database/pg-promise-connections-adapter'
 import { DatabaseRepositoryFactory } from '../../../src/infrastructure/factory/database-repository-factory'
