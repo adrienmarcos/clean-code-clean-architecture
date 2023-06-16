@@ -1,15 +1,15 @@
+import { OrderDAO } from '../../application/dao/order-dao'
 import { GetOrder } from '../../application/query/get-order/get-order'
-import { Connection } from '../database/connection'
 
 export class GetOrderController {
-  readonly connection: Connection
+  readonly orderDAO: OrderDAO
 
-  constructor (connection: Connection) {
-    this.connection = connection
+  constructor (orderDAO: OrderDAO) {
+    this.orderDAO = orderDAO
   }
 
   async execute (params: any, body: any): Promise<any> {
-    const getOrder = new GetOrder(this.connection)
+    const getOrder = new GetOrder(this.orderDAO)
     const getOrderOutput = await getOrder.execute(params.code)
     return getOrderOutput
   }

@@ -1,28 +1,28 @@
+import { OrderDAO } from '../../application/dao/order-dao'
 import { SimulateFreight } from '../../application/usecase/simulate-freight/simulate-freigth'
 import { DefaultFreightCalculator } from '../../domain/entity/default-freight-calculator'
 import { RepositoryFactory } from '../../domain/factory/repository-factory'
 import { GetOrderController } from '../controller/get-order-controller'
 import { GetOrdersController } from '../controller/get-orders-controller'
 import { PlaceOrderController } from '../controller/place-order-controller'
-import { Connection } from '../database/connection'
 import { PgPromiseConnectionAdapter } from '../database/pg-promise-connections-adapter'
 import { ItemRepositoryDatabase } from '../repository/database/item-repository-database'
 import { Http } from './http'
 
 export class RouteConfig {
-  constructor (http: Http, repositoryFactory: RepositoryFactory, connection: Connection) {
+  constructor (http: Http, repositoryFactory: RepositoryFactory, orderDAO: OrderDAO) {
     http.on('/orders', 'post', async (params: any, body: any) => {
       const placeOrderController = new PlaceOrderController(repositoryFactory)
       return await placeOrderController.execute(params, body)
     })
 
     http.on('/orders', 'get', async (params: any, body: any) => {
-      const getOrdersController = new GetOrdersController(connection)
+      const getOrdersController = new GetOrdersController(orderDAO)
       return await getOrdersController.execute(params, body)
     })
 
     http.on('/orders/:code', 'get', async (params: any, body: any) => {
-      const getOrderController = new GetOrderController(connection)
+      const getOrderController = new GetOrderController(orderDAO)
       return await getOrderController.execute(params, body)
     })
 

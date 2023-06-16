@@ -1,15 +1,15 @@
-import { Connection } from '../../../infrastructure/database/connection'
+import { OrderDAO } from '../../dao/order-dao'
 import { GetOrdersOutput } from './get-orders-output'
 
 export class GetOrders {
-  readonly connection: Connection
+  readonly orderDAO: OrderDAO
 
-  constructor (connection: Connection) {
-    this.connection = connection
+  constructor (orderDAO: OrderDAO) {
+    this.orderDAO = orderDAO
   }
 
   async execute (): Promise<GetOrdersOutput> {
-    const ordersData = await this.connection.query('Select code, total::float from ccca.tb_order', [])
+    const ordersData = await this.orderDAO.findAll()
     const getOrdersOutput = new GetOrdersOutput()
     for (const orderData of ordersData) {
       getOrdersOutput.addOrder(orderData.code, orderData.total)
