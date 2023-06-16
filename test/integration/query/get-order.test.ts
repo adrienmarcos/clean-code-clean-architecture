@@ -1,5 +1,6 @@
 import { GetOrder } from '../../../src/application/query/get-order/get-order'
 import { PlaceOrder } from '../../../src/application/usecase/place-order/place-order'
+import { OrderDAODatabase } from '../../../src/infrastructure/dao/order-dao-database'
 import { PgPromiseConnectionAdapter } from '../../../src/infrastructure/database/pg-promise-connections-adapter'
 import { DatabaseRepositoryFactory } from '../../../src/infrastructure/factory/database-repository-factory'
 import { OrderRepositoryDatabase } from '../../../src/infrastructure/repository/database/order-repository-database'
@@ -12,8 +13,9 @@ beforeEach(() => {
   const connection = PgPromiseConnectionAdapter.getInstance()
   orderRepository = new OrderRepositoryDatabase(connection)
   const repositoryFactory = new DatabaseRepositoryFactory()
+  const orderDAO = new OrderDAODatabase(connection)
   placeOrder = new PlaceOrder(repositoryFactory)
-  getOrder = new GetOrder(connection)
+  getOrder = new GetOrder(orderDAO)
 })
 
 describe('Get Order', () => {
